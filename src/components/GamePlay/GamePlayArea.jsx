@@ -74,6 +74,28 @@ const GamePlayArea = ({ yourChoice, setYourChoice, setPlayGame }) => {
   function handleRefresh() {
     setShowModal(true);
   }
+  function handleQuit() {
+    setGameArr(Array(9).fill(null));
+    setWinner(null);
+    setPlayGame(false);
+    setYourChoice(null);
+    sessionStorage.removeItem("play");
+    sessionStorage.removeItem("choice");
+    sessionStorage.removeItem("score");
+  }
+  function handleNextRound() {
+    setGameArr(Array(9).fill(null));
+    setWinner(null);
+    setCurrentTurn(yourChoice);
+  }
+  function handlePlayAgain() {
+    setGameArr(Array(9).fill(null));
+    setWinner(null);
+    setCurrentTurn(yourChoice);
+    setScore({ you: 0, pc: 0, tie: 0 });
+    setToSessionStorage({ you: 0, pc: 0, tie: 0 });
+    setShowModal(false);
+  }
 
   return (
     <div className={gamePlayCss.gamePlay}>
@@ -110,26 +132,18 @@ const GamePlayArea = ({ yourChoice, setYourChoice, setPlayGame }) => {
       {showModal && (
         <Modal setShowModal={setShowModal} type="refresh">
           <RefreshModal
-            yourChoice={yourChoice}
-            setGameArr={setGameArr}
-            setCurrentTurn={setCurrentTurn}
-            setWinner={setWinner}
-            setYourChoice={setYourChoice}
-            setShowModal={setShowModal}
-            setPlayGame={setPlayGame}
+            handleQuit={handleQuit}
+            handlePlayAgain={handlePlayAgain}
           />
         </Modal>
       )}
       {winner && (
         <Modal type="win">
           <WinnerModal
+            handleQuit={handleQuit}
+            handleNextRound={handleNextRound}
             winner={winner}
             yourChoice={yourChoice}
-            setGameArr={setGameArr}
-            setCurrentTurn={setCurrentTurn}
-            setWinner={setWinner}
-            setYourChoice={setYourChoice}
-            setPlayGame={setPlayGame}
           />
         </Modal>
       )}
