@@ -42,7 +42,7 @@ const PlayComponent = () => {
             <img src="cross.svg" alt="cross sign" />
             <img src="circle.svg" alt="circle sign" />
           </p>
-          <ChoosePlayer onClick={handlePlayerChoice} />
+          <ChoosePlayer onClick={handlePlayerChoice} yourChoice={yourChoice} />
           <GameStartButton type="primary" onClick={handleClick}>
             NEW GAME ( VS CPU )
           </GameStartButton>
